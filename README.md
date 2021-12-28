@@ -19,17 +19,17 @@
 
 ## Items
 
-|Column       |Type      |Options                       |
-|-------------|----------|------------------------------|
-|name         |string    |null: false                   |
-|description  |text      |null: false                   |
-|category     |string    |null: false                   |
-|condition    |string    |null: false                   |
-|shipping_fee |string    |null: false                   |
-|ship_from    |string    |null: false                   |
-|delivery_days|string    |null: false                   |
-|price        |integer   |null: false                   |
-|user         |references|null: false, foreign_key: true|
+|Column         |Type      |Options                       |
+|---------------|-----------|------------------------------|
+|name           |string     |null: false                   |
+|description    |text       |null: false                   |
+|category_id    |integer    |null: false                   |
+|condition_id   |integer    |null: false                   |
+|shipping_fee_id|integer    |null: false                   |
+|prefecture_id  |integer    |null: false                   |
+|delivery_day_id|integer    |null: false                   |
+|price          |integer    |null: false                   |
+|user           |references |null: false, foreign_key: true|
 
 ### Association
 - belongs_to :user
@@ -52,7 +52,7 @@
 |Column        |Type      |Options                       |
 |--------------|----------|------------------------------|
 |post_code     |string    |null: false                   |
-|prefecture    |string    |null: false                   |
+|prefecture_id |integer   |null: false                   |
 |municipality  |string    |null: false                   |
 |house_number  |string    |null: false                   |
 |building      |string    |                              |
