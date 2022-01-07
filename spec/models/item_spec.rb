@@ -60,17 +60,17 @@ RSpec.describe Item, type: :model do
       it 'priceが¥299以下では登録できない' do
         @item.price = 299
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price must be half-width number(300~9,999,999)")
+        expect(@item.errors.full_messages).to include('Price must be half-width number(300~9,999,999)')
       end
       it 'priceが¥10000000以上では登録できない' do
-        @item.price = 10000000
+        @item.price = 10_000_000
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price must be half-width number(300~9,999,999)")
+        expect(@item.errors.full_messages).to include('Price must be half-width number(300~9,999,999)')
       end
       it 'priceが全角数値では登録できない' do
         @item.price = '１０００'
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price must be half-width number(300~9,999,999)")
+        expect(@item.errors.full_messages).to include('Price must be half-width number(300~9,999,999)')
       end
     end
   end
