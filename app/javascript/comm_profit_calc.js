@@ -1,6 +1,6 @@
 function calc (){
   const itemPrice  = document.getElementById("item-price");
-  itemPrice.addEventListener("keyup", () => {
+  itemPrice.addEventListener("input", () => {
     const tax = itemPrice.value * 0.1
     const profit = itemPrice.value - tax
     const addTaxPrice  = document.getElementById("add-tax-price");
