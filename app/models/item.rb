@@ -22,7 +22,7 @@ class Item < ApplicationRecord
       validates :delivery_day_id
     end
 
-    validates :price, numericality: { less_than_or_equal_to: 9_999_999,
-                                      greater_than_or_equal_to: 300, message: 'must be half-width number(300~9,999,999)' }
+    validates :price, numericality: { only_integer: true, less_than_or_equal_to: 9_999_999,
+                                      greater_than_or_equal_to: 300, message: 'must be half-width integer(300~9,999,999)' }
   end
 end
