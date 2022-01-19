@@ -53,7 +53,7 @@ RSpec.describe ItemAddress, type: :model do
       it 'telにハイフンを含むと保存できないこと' do
         @item_address.tel = '090-1234-5678'
         @item_address.valid?
-        expect(@item_address.errors.full_messages).to include("Tel is invalid")
+        expect(@item_address.errors.full_messages).to include('Tel is invalid')
       end
       it 'tokenが空だと保存できないこと' do
         @item_address.token = ''
