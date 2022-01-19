@@ -1,15 +1,21 @@
 class PurchasedItemsController < ApplicationController
+  before_action :authenticate_user!, only: [:index]
+
   def index
     @item = Item.find(params[:item_id])
-    @purchased_item = PurchasedItem.new
+    if @item.user.id != current_user.id && @item.purchased_item.blank?
+      @item_address = ItemAddress.new
+    else
+      redirect_to root_path
+    end
   end
 
   def create
     @item = Item.find(params[:item_id])
-    @purchased_item = PurchasedItem.new(purchased_item_params)
-    if @purchased_item.valid?
+    @item_address = ItemAddress.new(item_address_params)
+    if @item_address.valid?
       pay_item
-      @purchased_item.save
+      @item_address.save
       return redirect_to root_path
     else
       render 'index'
@@ -17,15 +23,15 @@ class PurchasedItemsController < ApplicationController
   end
 
   private
-  def purchased_item_params
-    params.permit(:item_id, :token).merge(user_id: current_user.id)
+  def item_address_params
+    params.require(:item_address).permit(:post_code, :prefecture_id, :municipality, :house_number, :building, :tel).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
   end
 
   def pay_item
     Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
       Payjp::Charge.create(
         amount: @item.price,
-        card: purchased_item_params[:token],
+        card: item_address_params[:token],
         currency: 'jpy'
       )
   end

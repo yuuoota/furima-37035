@@ -1,6 +1,5 @@
 class PurchasedItem < ApplicationRecord
   belongs_to :user
   belongs_to :item
-
-  attr_accessor :token
+  has_one :shipping_address
 end
