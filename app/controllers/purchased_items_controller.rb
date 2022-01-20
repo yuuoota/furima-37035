@@ -1,8 +1,8 @@
 class PurchasedItemsController < ApplicationController
   before_action :authenticate_user!, only: [:index]
+  before_action :set_item, only: [:index, :create]
 
   def index
-    @item = Item.find(params[:item_id])
     if @item.user.id != current_user.id && @item.purchased_item.blank?
       @item_address = ItemAddress.new
     else
@@ -11,7 +11,6 @@ class PurchasedItemsController < ApplicationController
   end
 
   def create
-    @item = Item.find(params[:item_id])
     @item_address = ItemAddress.new(item_address_params)
     if @item_address.valid?
       pay_item
@@ -23,6 +22,10 @@ class PurchasedItemsController < ApplicationController
   end
 
   private
+
+  def set_item
+    @item = Item.find(params[:item_id])
+  end
 
   def item_address_params
     params.require(:item_address).permit(:post_code, :prefecture_id, :municipality, :house_number, :building, :tel).merge(

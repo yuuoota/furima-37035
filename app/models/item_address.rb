@@ -9,7 +9,7 @@ class ItemAddress
     validates :post_code, format: { with: /\A[0-9]{3}-[0-9]{4}\z/, message: 'is invalid. Include hyphen(-)' }
     validates :municipality
     validates :house_number
-    validates :tel, format: { with: /\d{10,11}/, message: 'is invalid' }
+    validates :tel, format: { with: /\A\d{10,11}\z/, message: 'is invalid' }
   end
   validates :prefecture_id, numericality: { other_than: 1, message: "can't be blank" }
 

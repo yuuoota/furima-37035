@@ -55,6 +55,16 @@ RSpec.describe ItemAddress, type: :model do
         @item_address.valid?
         expect(@item_address.errors.full_messages).to include('Tel is invalid')
       end
+      it 'telが9桁以下では保存できないこと' do
+        @item_address.tel = '090123456'
+        @item_address.valid?
+        expect(@item_address.errors.full_messages).to include('Tel is invalid')
+      end
+      it 'telが12桁以上では保存できないこと' do
+        @item_address.tel = '090123456789'
+        @item_address.valid?
+        expect(@item_address.errors.full_messages).to include('Tel is invalid')
+      end
       it 'tokenが空だと保存できないこと' do
         @item_address.token = ''
         @item_address.valid?
